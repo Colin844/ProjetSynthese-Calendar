@@ -1,0 +1,37 @@
+/* style de base très simple pour le calendrier */
+
+.calendrier {
+    width: 300px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .semaines {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+  
+  .jour {
+    border: 1px solid #000;
+    padding: 8px 0;
+    text-align: center;
+  }
+  
+  .jour.semaine {
+    font-weight: bold;
+    background: #eee;
+  }
+  
+  .jour.vide {
+    border: none;
+    background: transparent;
+  }
+  
