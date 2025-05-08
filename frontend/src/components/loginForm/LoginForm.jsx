@@ -1,33 +1,41 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../AuthContext/authContext";
+import { AuthContext } from "../authContext/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const auth = useContext(AuthContext); // Récupérer contexte authentification
+  const { login } = useContext(AuthContext); // Récupérer contexte authentification
+  const navigate = useNavigate(); // Récupérer fonction de navigation
 
-  const { formData, setFormData } = useState({
-    user: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [motDePasse, setMotDePasse] = useState("");
+  const [erreur, setErreur] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target; // Récupérer nom et valeurélément cible
-    setFormData((prevData) => ({ ...prevData, [name]: value })); // Mise à jour état du formulaire
+  const authSubmitHandler = (event) => {
+    event.preventDefault(); // Empêcher le rechargement de la page
+
+    if (email === "test@test.com" && motDePasse === "1234") {
+      // Utiliser valeurs de test
+      const fakeToken = "FAUX_TOKEN";
+
+      login(fakeToken, email); // Appeler fonction de connexion
+      navigate("/"); // Rediriger vers la page d'accueil
+    } else {
+      setErreur("Identifiants invalides"); // Afficher erreur
+    }
   };
 
-  const authSubmitHandler = (event) => {};
-
   return (
-    <form onSubmit={authSubmitHandler}>
+    <form onSubmit={authSubmitHandler} className="login-form">
       <h2>Connexion</h2>
 
       <div>
-        <label htmlFor="user">Nom d&apos;utilisateur</label>
+        <label htmlFor="user">Adresse Courriel</label>
         <input
-          id="user"
-          type="text"
-          name="nom_user"
-          value={formData.nom_user}
-          onChange={handleChange}
+          id="email"
+          type="email"
+          name="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
         />
       </div>
 
@@ -37,16 +45,16 @@ const LoginForm = () => {
           id="password"
           type="password"
           name="password"
-          value={formData.password}
-          onChange={handleChange}
+          value={motDePasse}
+          onChange={(event) => setMotDePasse(event.target.value)}
         />
       </div>
 
-      <p>
-        <button className="button" type="submit">
-          Se connecter
-        </button>
-      </p>
+      {erreur && <p className="error">{erreur}</p>}
+
+      <button className="button" type="submit">
+        Se connecter
+      </button>
     </form>
   );
 };
