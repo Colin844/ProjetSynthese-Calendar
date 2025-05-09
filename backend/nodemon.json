@@ -1,0 +1,6 @@
+{
+  "env": {
+    "PORT": 5000,
+    "MONGODB_URI": "mongodb+srv://yuandietrichko:UamjW7cQGg4dVZ16@cal3nd4r.hzoivfl.mongodb.net/?retryWrites=true&w=majority&appName=Cal3nd4r"
+  }
+}

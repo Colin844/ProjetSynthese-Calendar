@@ -1,6 +1,9 @@
 import express from "express";
 import { check } from "express-validator";
-import { inscrire, connecter } from "../controllers/userController.js";
+import {
+  inscrireUser,
+  connecterUser,
+} from "../controllers/users-controllers.js";
 
 // Création d'une instance de routeur
 const router = express.Router();
@@ -20,7 +23,7 @@ router.post(
       .isLength({ min: 6 })
       .withMessage("Minimum 6 caractères."),
   ],
-  inscrire
+  inscrireUser
 );
 
 // Route POST : connexion d’un utilisateur existant
@@ -33,7 +36,7 @@ router.post(
     // Validation : le mot de passe est requis
     check("motDePasse").not().isEmpty().withMessage("Mot de passe requis."),
   ],
-  connecter
+  connecterUser
 );
 
 // Exportation du routeur pour utilisation dans app.js
