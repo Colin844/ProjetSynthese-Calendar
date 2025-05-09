@@ -4,10 +4,11 @@ import { AuthContextProvider } from "./components/authContext/AuthContextProvide
 import Calendar from "./components/Calendar/Calendar";
 import LoginForm from "./components/loginForm/LoginForm";
 import Header from "./components/header/Header";
+import EventForm from "./components/eventForm/EventForm";
 import "./App.css";
 
 function App() {
-  const routerLogout = createBrowserRouter([
+  const routerLoggedOut = createBrowserRouter([
     {
       path: "/",
       element: (
@@ -19,13 +20,15 @@ function App() {
       children: [
         { path: "/", element: <Calendar /> },
         { path: "/login", element: <LoginForm /> },
+        { path: "/addEvent", element: <EventForm /> },
+        { path: "/editEvent/:id", element: <EventForm /> },
       ],
     },
   ]);
 
   return (
     <AuthContextProvider>
-      <RouterProvider router={routerLogout} />
+      <RouterProvider router={routerLoggedOut} />
     </AuthContextProvider>
   );
 }
