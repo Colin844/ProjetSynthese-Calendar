@@ -13,7 +13,7 @@ router.post(
   "/inscription",
   [
     // Validation : le nom ne doit pas être vide
-    check("nom").not().isEmpty().withMessage("Le nom est requis."),
+    check("nom").trim().not().isEmpty().withMessage("Le nom est requis."),
 
     // Validation : le courriel doit être au bon format
     check("courriel").isEmail().withMessage("Courriel invalide."),
@@ -31,10 +31,10 @@ router.post(
   "/connexion",
   [
     // Validation : le champ courriel est requis
-    check("courriel").not().isEmpty().withMessage("Courriel requis."),
+    check("courriel").trim().not().isEmpty().withMessage("Courriel requis."),
 
     // Validation : le mot de passe est requis
-    check("motDePasse").not().isEmpty().withMessage("Mot de passe requis."),
+    check("motDePasse").trim().not().isEmpty().withMessage("Mot de passe requis."),
   ],
   connecterUser
 );

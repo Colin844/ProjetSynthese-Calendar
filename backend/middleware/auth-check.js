@@ -15,8 +15,8 @@ const checkAuth = async (req, res, next) => {
     }
 
     // Vérification du token et décodage
-    const decodedToken = jwt.verify(token, "codeSecret....");
-    const userId = decodedToken.id;
+    const decodedToken = jwt.verify(token, "cleSuperSecrete!");
+    const userId = decodedToken.userId;
 
     // Vérifie que l'utilisateur existe
     const user = await User.findById(userId);

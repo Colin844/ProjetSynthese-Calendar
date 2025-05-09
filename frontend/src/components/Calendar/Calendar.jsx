@@ -78,3 +78,8 @@ function Calendar() {
 }
 
 export default Calendar;
+
+
+// SOURCE D'AIDE CRÉATION DE CE CALENDRIER (OPEN SOURCE) : https://derrickotte.medium.com/how-to-create-a-calendar-from-scratch-in-react-1f2db197454d
+                                                      // : https://www.youtube.com/watch?v=wDayVPGWipI
+                                                      // : https://www.youtube.com/watch?v=RWz23UKXdAk

@@ -20,9 +20,9 @@ export const listerEvenements = async (req, res, next) => {
 // POST /api/evenements
 export const ajouterEvenement = async (req, res, next) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new HttpError("Données invalides pour l'événement", 422));
-  }
+ if (!errors.isEmpty()) {
+  return res.status(422).json({ erreurs: errors.array() });
+}
 
   const { titre, description, date, heure } = req.body;
 

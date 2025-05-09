@@ -7,9 +7,9 @@ import { validationResult } from "express-validator";
 // POST /api/auth/inscription — Créer un nouvel utilisateur
 export const inscrireUser = async (req, res, next) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new HttpError("Données invalides fournies", 422));
-  }
+ if (!errors.isEmpty()) {
+  return res.status(422).json({ erreurs: errors.array() });
+}
 
   const { nom, courriel, motDePasse } = req.body;
 
