@@ -8,11 +8,9 @@ export const listerEvenements = async (req, res, next) => {
     const evenements = await Evenement.find({ userId: req.user._id }).sort({
       date: 1,
     });
-    res
-      .status(200)
-      .json({
-        evenements: evenements.map((e) => e.toObject({ getters: true })),
-      });
+    res.status(200).json({
+      evenements: evenements.map((e) => e.toObject({ getters: true })),
+    });
   } catch (err) {
     console.error(err);
     return next(new HttpError("Impossible de récupérer les événements", 500));
@@ -165,14 +163,6 @@ export const getEvenementById = async (req, res, next) => {
 // GET /api/evenements/date/:date
 export const getEvenementsParDate = async (req, res, next) => {
   const date = req.params.date; // format  : "YYYY-MM-DD"
-
-  // Vérifie que le format de la date est correct (ex : 2025-05-17)
-  const regex = /^\d{4}-\d{2}-\d{2}$/;
-  if (!regex.test(date)) {
-    return next(
-      new HttpError("Format de date invalide. Utilisez YYYY-MM-DD.", 400)
-    );
-  }
 
   try {
     // Recherche tous les événements de cette date pour l'utilisateur connecté
