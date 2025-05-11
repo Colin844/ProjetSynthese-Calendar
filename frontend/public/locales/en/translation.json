@@ -1,0 +1,27 @@
+{
+  "header": {
+    "welcome": "Welcome",
+    "logout": "Logout",
+    "login": "Login",
+    "add_event": "Add Event",
+    "calendar": "CAL3ND4R"
+  },
+  "login": {
+    "title": "Login",
+    "email": "Email Address",
+    "password": "Password",
+    "submit": "Log In"
+  },
+  "event": {
+    "create": "Create Event",
+    "edit": "Edit Event",
+    "name": "Event Name",
+    "description": "Event Description",
+    "date": "Event Date",
+    "time": "Event Time",
+    "required_error": "Please fill in the event title and date."
+  },
+  "calendar": {
+    "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  }
+}

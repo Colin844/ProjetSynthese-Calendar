@@ -1,0 +1,27 @@
+{
+  "header": {
+    "welcome": "Bienvenue",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "add_event": "Ajouter un événement",
+    "calendar": "CAL3ND4R"
+  },
+  "login": {
+    "title": "Connexion",
+    "email": "Adresse Courriel",
+    "password": "Mot de passe",
+    "submit": "Se connecter"
+  },
+  "event": {
+    "create": "Créer un événement",
+    "edit": "Modifier l'événement",
+    "name": "Nom de l'événement",
+    "description": "Description de l'événement",
+    "date": "Date de l'événement",
+    "time": "Heure de l'événement",
+    "required_error": "Veuillez remplir le titre et la date de l'événement."
+  },
+  "calendar": {
+    "days": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]
+  }
+}
