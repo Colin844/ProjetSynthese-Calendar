@@ -1,12 +1,27 @@
-.calendrier {
-  max-width: 900px;
+/* ---- Structure générale ---- */
+
+.calendrier-wrapper {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
   margin: 2rem auto;
+  max-width: 1200px;
+  padding: 0 1rem;
+}
+
+/* ---- Calendrier principal ---- */
+
+.calendrier {
+  flex: 2;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 1rem;
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
+
+/* ---- En-tête du calendrier (mois + flèches) ---- */
 
 .header {
   display: flex;
@@ -34,11 +49,15 @@
   text-transform: capitalize;
 }
 
+/* ---- Grille de la semaine (jours) ---- */
+
 .semaines {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
 }
+
+/* ---- Cellules de jours ---- */
 
 .jour {
   border: 1px solid #dcdcdc;
@@ -64,6 +83,8 @@
   background: transparent;
 }
 
+/* ---- Numéro de jour ---- */
+
 .jour .numero-jour {
   font-weight: bold;
   font-size: 0.85rem;
@@ -72,6 +93,8 @@
   top: 4px;
   right: 6px;
 }
+
+/* ---- Événement dans une case ---- */
 
 .jour .event {
   background-color: #1e90ff22;
@@ -91,7 +114,40 @@
   cursor: pointer;
 }
 
+/* ---- Style du jour actuel ---- */
+
 .jour.aujourd-hui {
   background-color: #e6f7ff;
   border: 2px solid #1890ff;
+}
+
+/* ---- Section des événements à venir ---- */
+
+.evenements-avenir {
+  flex: 1;
+  background-color: #f9fafb;
+  padding: 1rem 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
+  max-width: 300px;
+}
+
+.evenements-avenir h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #1e3a8a;
+}
+
+.evenements-avenir ul {
+  list-style: disc inside;
+  padding-left: 0;
+  font-size: 0.9rem;
+}
+
+.evenements-avenir li {
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
 }

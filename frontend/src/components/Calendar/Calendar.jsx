@@ -1,6 +1,6 @@
 import "./Calendar.css";
 import { useState } from "react";
-
+import EventList from "../eventList/EventList";
 const joursSemaine = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
 
 function Calendar() {
@@ -52,34 +52,38 @@ function Calendar() {
   };
 
   return (
-    <div className="calendrier">
-      <div className="header">
-        <button onClick={() => changerMois(-1)}>&lt;</button>
-        <h2>
-          {/* Affiche le mois et l'année en français */}
-          {new Date(annee, mois).toLocaleString("fr-FR", {
-            month: "long",
-            year: "numeric",
-          })}
-        </h2>
-        <button onClick={() => changerMois(1)}>&gt;</button>
+    <div className="calendrier-wrapper">
+      <div className="calendrier">
+        <div className="header">
+          <button onClick={() => changerMois(-1)}>&lt;</button>
+          <h2>
+            {/* Affiche le mois et l'année en français */}
+            {new Date(annee, mois).toLocaleString("fr-FR", {
+              month: "long",
+              year: "numeric",
+            })}
+          </h2>
+          <button onClick={() => changerMois(1)}>&gt;</button>
+        </div>
+
+        <div className="semaines">
+          {joursSemaine.map((j) => (
+            <div key={j} className="jour semaine">
+              {j}
+            </div>
+          ))}
+          {jours}
+        </div>
       </div>
 
-      <div className="semaines">
-        {joursSemaine.map((j) => (
-          <div key={j} className="jour semaine">
-            {j}
-          </div>
-        ))}
-        {jours}
-      </div>
+      {/* Section des événements à venir */}
+      <EventList />
     </div>
   );
 }
 
 export default Calendar;
 
-
 // SOURCE D'AIDE CRÉATION DE CE CALENDRIER (OPEN SOURCE) : https://derrickotte.medium.com/how-to-create-a-calendar-from-scratch-in-react-1f2db197454d
-                                                      // : https://www.youtube.com/watch?v=wDayVPGWipI
-                                                      // : https://www.youtube.com/watch?v=RWz23UKXdAk
+// : https://www.youtube.com/watch?v=wDayVPGWipI
+// : https://www.youtube.com/watch?v=RWz23UKXdAk
