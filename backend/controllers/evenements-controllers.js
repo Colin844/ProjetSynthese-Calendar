@@ -1,6 +1,8 @@
 import { validationResult } from "express-validator";
 import Evenement from "../models/evenement.js";
 import HttpError from "../util/http-error.js";
+import User from "../models/user.js";
+
 
 // GET /api/evenements
 export const listerEvenements = async (req, res, next) => {
@@ -54,6 +56,10 @@ export const ajouterEvenement = async (req, res, next) => {
     });
 
     await nouvelEvenement.save();
+    // associer l'événement à l'utilisateur
+    await User.findByIdAndUpdate(req.user._id, {
+      $push: { evenements: nouvelEvenement._id },
+    });
     res
       .status(201)
       .json({ evenement: nouvelEvenement.toObject({ getters: true }) });
