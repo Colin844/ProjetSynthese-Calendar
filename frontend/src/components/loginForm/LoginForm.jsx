@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../authContext/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = () => {
   const { login } = useContext(AuthContext); // Récupérer contexte authentification
   const navigate = useNavigate(); // Récupérer fonction de navigation
+  const { t } = useTranslation(); // Accès à la fonction t() pour traduire les clés
 
   const [email, setEmail] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
@@ -41,10 +43,10 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={authSubmitHandler} className="login-form">
-      <h2>Connexion</h2>
+      <h2>{t("login.title")}</h2>
 
       <div>
-        <label htmlFor="user">Adresse Courriel</label>
+        <label htmlFor="user">{t("login.email")}</label>
         <input
           id="email"
           type="email"
@@ -55,7 +57,7 @@ const LoginForm = () => {
       </div>
 
       <div>
-        <label htmlFor="password">Mot de passe</label>
+        <label htmlFor="password">{t("login.password")}</label>
         <input
           id="password"
           type="password"
@@ -68,7 +70,7 @@ const LoginForm = () => {
       {erreur && <p className="error">{erreur}</p>}
 
       <button className="button" type="submit">
-        Se connecter
+        {t("login.submit")}
       </button>
     </form>
   );

@@ -4,7 +4,8 @@
     "logout": "Déconnexion",
     "login": "Connexion",
     "add_event": "Ajouter un événement",
-    "calendar": "CAL3ND4R"
+    "calendar": "CAL3ND4R",
+    "accueil" : "Accueil"
   },
   "login": {
     "title": "Connexion",
@@ -19,9 +20,10 @@
     "description": "Description de l'événement",
     "date": "Date de l'événement",
     "time": "Heure de l'événement",
-    "required_error": "Veuillez remplir le titre et la date de l'événement."
+    "required_error": "Veuillez remplir le titre et la date de l'événement."  
   },
   "calendar": {
-    "days": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]
+    "days": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+    "locale": "fr-FR"
   }
 }

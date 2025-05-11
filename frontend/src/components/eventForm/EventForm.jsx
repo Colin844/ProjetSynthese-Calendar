@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const EventForm = ({ eventInitial = null }) => {
   const [eventName, setEventName] = useState("");
@@ -12,6 +13,7 @@ const EventForm = ({ eventInitial = null }) => {
   const { token } = useContext(AuthContext);
 
   const navigate = useNavigate();
+   const { t } = useTranslation();
 
   // Préremplir les champs si on est en mode édition
   useEffect(() => {
@@ -27,7 +29,7 @@ const EventForm = ({ eventInitial = null }) => {
     event.preventDefault();
 
     if (!eventName || !eventDate) {
-      setErreur("Veuillez remplir le titre et la date de l'événement.");
+      setErreur(t("event.required_error"));
       return;
     }
 
@@ -71,9 +73,9 @@ const EventForm = ({ eventInitial = null }) => {
 
   return (
     <form onSubmit={handleSubmit} className="event-form">
-      <h2>{modeEdition ? "Modifier l'événement" : "Créer un événement"}</h2>
+      <h2>{modeEdition ? t("event.edit") : t("event.create")}</h2>
 
-      <label htmlFor="eventName">Nom de l&apos;événement</label>
+      <label htmlFor="eventName">{t("event.name")}</label>
       <input
         id="eventName"
         type="text"
@@ -82,7 +84,7 @@ const EventForm = ({ eventInitial = null }) => {
         required
       />
 
-      <label htmlFor="eventDescription">Description de l&apos;événement</label>
+      <label htmlFor="eventDescription">{t("event.description")}</label>
       <input
         id="eventDescription"
         type="text"
@@ -90,7 +92,7 @@ const EventForm = ({ eventInitial = null }) => {
         onChange={(e) => setEventDescription(e.target.value)}
       />
 
-      <label htmlFor="eventDate">Date de l&apos;événement</label>
+      <label htmlFor="eventDate">{t("event.date")}</label>
       <input
         id="eventDate"
         type="date"
@@ -99,7 +101,7 @@ const EventForm = ({ eventInitial = null }) => {
         required
       />
 
-      <label htmlFor="eventTime">Heure de l&apos;événement</label>
+      <label htmlFor="eventTime">{t("event.time")}</label>
       <input
         id="eventTime"
         type="time"
@@ -110,7 +112,7 @@ const EventForm = ({ eventInitial = null }) => {
       {erreur && <p className="error">{erreur}</p>}
 
       <button type="submit" className="button">
-        {modeEdition ? "Modifier l'événement" : "Créer l'événement"}
+        {modeEdition ? t("event.edit") : t("event.create")}
       </button>
     </form>
   );

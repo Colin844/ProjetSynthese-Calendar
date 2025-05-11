@@ -1,13 +1,17 @@
 import "./Calendar.css";
 import { useState } from "react";
 import EventList from "../eventList/EventList";
-const joursSemaine = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+import { useTranslation } from "react-i18next";
+
+
 
 function Calendar() {
   // Initialise mois et année avec la date d'aujourd'hui
   const today = new Date();
   const [mois, setMois] = useState(today.getMonth());
   const [annee, setAnnee] = useState(today.getFullYear());
+  const { t } = useTranslation();
+  const joursSemaine = t("calendar.days", { returnObjects: true });
 
   // Retourne le nombre total de jours dans un mois donné
   const getJoursDansMois = (mois, annee) => {
@@ -58,7 +62,7 @@ function Calendar() {
           <button onClick={() => changerMois(-1)}>&lt;</button>
           <h2>
             {/* Affiche le mois et l'année en français */}
-            {new Date(annee, mois).toLocaleString("fr-FR", {
+            {new Date(annee, mois).toLocaleString(t("calendar.locale"), {
               month: "long",
               year: "numeric",
             })}
@@ -67,11 +71,12 @@ function Calendar() {
         </div>
 
         <div className="semaines">
-          {joursSemaine.map((j) => (
-            <div key={j} className="jour semaine">
+          {joursSemaine.map((j, index) => (
+            <div key={index} className="jour semaine">
               {j}
             </div>
           ))}
+
           {jours}
         </div>
       </div>
