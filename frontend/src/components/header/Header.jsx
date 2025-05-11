@@ -1,9 +1,16 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext/AuthContext";
 
 const Header = () => {
-  const { isLoggedin, userId, logout } = useContext(AuthContext);
+  const { isLoggedIn, logout, nom } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Déconnecter l'utilisateur et rediriger vers la page d'accueil
+    logout();
+    navigate("/");
+  };
 
   return (
     <header className="header">
@@ -11,13 +18,15 @@ const Header = () => {
 
       <nav className="header__nav">
         <Link to="/">Accueil</Link>
-        {isLoggedin && <Link to="/dashboard">Tableau des événements</Link>}
-        {!isLoggedin && <Link to="/login">Connexion</Link>}
-        {!isLoggedin && <Link to="/addEvent">Ajouter un événement</Link>}
-        {isLoggedin && (
+
+        {isLoggedIn && <Link to="/addEvent">Ajouter un événement</Link>}
+
+        {!isLoggedIn && <Link to="/login">Connexion</Link>}
+
+        {isLoggedIn && (
           <>
-            <span>Bienvenue, {userId}</span>
-            <button onClick={logout}>Déconnexion</button>
+            <span>Bienvenue, {nom || "Utilisateur"}</span>
+            <button onClick={handleLogout}>Déconnexion</button>
           </>
         )}
       </nav>
