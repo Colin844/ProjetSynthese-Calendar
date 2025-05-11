@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../authContext/AuthContext";
 
-const EventForm = ({ eventInitial = null, onSave }) => {
+const EventForm = ({ eventInitial = null }) => {
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventTime, setEventTime] = useState("");
   const [erreur, setErreur] = useState("");
+  const { token } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -21,7 +23,7 @@ const EventForm = ({ eventInitial = null, onSave }) => {
     }
   }, [eventInitial]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!eventName || !eventDate) {
@@ -29,21 +31,38 @@ const EventForm = ({ eventInitial = null, onSave }) => {
       return;
     }
 
-    const nouvelEvenement = {
-      id: eventInitial?.id || Date.now(),
-      eventName,
-      eventDescription,
-      eventDate,
-      eventTime,
+    const payload = {
+      titre: eventName,
+      description: eventDescription,
+      date: eventDate,
+      heure: eventTime,
     };
 
-    // Appel du callback (ex: envoie vers backend)
-    if (onSave) {
-      onSave(nouvelEvenement);
-    }
+    try {
+      const response = await fetch(
+        eventInitial
+          ? `http://localhost:5000/api/evenements/${eventInitial.id}`
+          : "http://localhost:5000/api/evenements",
+        {
+          method: eventInitial ? "PATCH" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
-    // Redirection après sauvegarde
-    navigate("/");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Erreur de sauvegarde");
+      }
+
+      navigate("/");
+    } catch (err) {
+      setErreur(err.message);
+    }
   };
 
   // Vérifier si mode modifier événement ou ajouter événement
@@ -105,7 +124,6 @@ EventForm.propTypes = {
     eventDate: PropTypes.string,
     eventTime: PropTypes.string,
   }),
-  onSave: PropTypes.func.isRequired,
 };
 
 export default EventForm;

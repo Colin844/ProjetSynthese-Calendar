@@ -10,17 +10,32 @@ const LoginForm = () => {
   const [motDePasse, setMotDePasse] = useState("");
   const [erreur, setErreur] = useState("");
 
-  const authSubmitHandler = (event) => {
+  const authSubmitHandler = async (event) => {
     event.preventDefault(); // Empêcher le rechargement de la page
 
-    if (email === "test@test.com" && motDePasse === "1234") {
-      // Utiliser valeurs de test
-      const fakeToken = "FAUX_TOKEN";
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/connexion",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            courriel: email,
+            motDePasse: motDePasse,
+          }),
+        }
+      );
 
-      login(fakeToken, email); // Appeler fonction de connexion
-      navigate("/"); // Rediriger vers la page d'accueil
-    } else {
-      setErreur("Identifiants invalides"); // Afficher erreur
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Erreur de connexion");
+      }
+
+      login(data.token, data.userId, data.nom); // Appel de AuthContext
+      navigate("/");
+    } catch (err) {
+      setErreur(err.message);
     }
   };
 
