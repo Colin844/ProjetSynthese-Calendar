@@ -36,7 +36,8 @@
     "time": "Heure de l'événement",
     "required_error": "Veuillez remplir le titre et la date de l'événement.",
     "upcoming": "À venir",
-    "none": "Aucun événement prévu."
+    "none": "Aucun événement prévu.",
+    "more": "autres"
   },
   "calendar": {
     "days": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],

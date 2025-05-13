@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: flex-start;
   margin: 2rem auto;
-  max-width: 1200px;
+  max-width: 1500px;
   padding: 0 1rem;
 }
 
@@ -60,14 +60,16 @@
 /* ---- Cellules de jours ---- */
 
 .jour {
-  border: 1px solid #dcdcdc;
-  min-height: 80px;
-  padding: 4px;
-  text-align: left;
-  font-size: 0.9rem;
-  background-color: #fafafa;
   position: relative;
+  border: 1px solid #dcdcdc;
+  min-height: 100px;
+  max-height: 100px;
+  overflow: hidden;
+  padding: 4px 4px 4px 6px;
   border-radius: 6px;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
 }
 
 .jour.semaine {
@@ -84,22 +86,18 @@
 }
 
 /* ---- Numéro de jour ---- */
-
-.jour .numero-jour {
+.numero-jour {
   font-weight: bold;
   font-size: 0.85rem;
   color: #333;
-  position: absolute;
-  top: 4px;
-  right: 6px;
+  margin-bottom: 2px;
 }
 
 /* ---- Événement dans une case ---- */
-
-.jour .event {
+.event {
   background-color: #1e90ff22;
   color: #1e3a8a;
-  margin-top: 6px;
+  margin-top: 4px;
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 0.8rem;
@@ -107,11 +105,19 @@
   overflow: hidden;
   text-overflow: ellipsis;
   border-left: 4px solid #1e90ff;
+  cursor: pointer;
 }
 
-.jour .event:hover {
+.event:hover {
   background-color: #1e90ff44;
-  cursor: pointer;
+}
+
+.more-events {
+  font-size: 0.75rem;
+  color: #555;
+  margin-top: 2px;
+  text-align: center;
+  cursor: default;
 }
 
 /* ---- Style du jour actuel ---- */

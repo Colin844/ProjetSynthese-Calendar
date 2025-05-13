@@ -1,16 +1,19 @@
 import "./Calendar.css";
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import EventList from "../eventList/EventList";
 import { useTranslation } from "react-i18next";
-
-
+import { AuthContext } from "../authContext/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Calendar() {
   // Initialise mois et année avec la date d'aujourd'hui
   const today = new Date();
   const [mois, setMois] = useState(today.getMonth());
   const [annee, setAnnee] = useState(today.getFullYear());
+  const [evenements, setEvenements] = useState([]);
   const { t } = useTranslation();
+  const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
   const joursSemaine = t("calendar.days", { returnObjects: true });
 
   // Retourne le nombre total de jours dans un mois donné
@@ -23,7 +26,34 @@ function Calendar() {
   const premierJourDuMois = new Date(annee, mois, 1).getDay();
   const joursDuMois = getJoursDansMois(mois, annee);
 
-  // Création des cases de calendrier - d'abord les vides pour le décalage
+  // Charger les événements dans le calendrier
+  // On utilise useEffect pour charger les événements à chaque fois que le mois ou l'année change
+  useEffect(() => {
+    const chargerEvenements = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/evenements", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          setEvenements(data.evenements);
+        }
+      } catch (err) {
+        console.error("Erreur lors du chargement des événements", err);
+      }
+    };
+
+    chargerEvenements();
+  }, [token, mois, annee]);
+
+  const getEvenementsPourJour = (jour) => {
+    const dateStr = new Date(annee, mois, jour).toISOString().split("T")[0];
+    return evenements.filter((e) => e.date === dateStr);
+  };
+
   const jours = [];
   for (let i = 0; i < premierJourDuMois; i++) {
     jours.push(<div key={`vide-${i}`} className="jour vide" />);
@@ -31,9 +61,27 @@ function Calendar() {
 
   // Puis les jours numérotés
   for (let i = 1; i <= joursDuMois; i++) {
+    const eventsDuJour = getEvenementsPourJour(i);
+    const eventsToShow = eventsDuJour.slice(0, 3);
+    const moreCount = eventsDuJour.length - eventsToShow.length;
+
     jours.push(
       <div key={i} className="jour">
-        {i}
+        <span className="numero-jour">{i}</span>
+        {eventsToShow.map((ev) => (
+          <div
+            key={ev.id}
+            className="event"
+            onClick={() => navigate(`/editEvent/${ev.id}`)}
+          >
+            {ev.titre}
+          </div>
+        ))}
+        {moreCount > 0 && (
+          <div className="more-events">
+            +{moreCount} {t("event.more")}
+          </div>
+        )}
       </div>
     );
   }

@@ -36,7 +36,8 @@
     "time": "Event Time",
     "required_error": "Please fill in the event title and date.",
     "upcoming": "Upcoming",
-    "none": "No events scheduled."
+    "none": "No events scheduled.",
+    "more": "more"
   },
   "calendar": {
     "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
