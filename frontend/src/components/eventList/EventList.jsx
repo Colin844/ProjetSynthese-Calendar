@@ -10,6 +10,12 @@ const EventList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    if (!isLoggedIn) {
+      setEvenements([]);
+      return;
+    }
+
     const chargerEvenements = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/evenements", {
