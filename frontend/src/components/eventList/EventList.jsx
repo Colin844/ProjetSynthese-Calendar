@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const EventList = () => {
   const [evenements, setEvenements] = useState([]);
-  const { token } = useContext(AuthContext);
+  const { token, isLoggedIn } = useContext(AuthContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
 
