@@ -10,12 +10,14 @@ export default function LanguageSwitcher() {
   };
 
   return (
-    <div className="lang-switcher">
+    <select
+      onChange={changeLanguage}
+      value={i18n.language}
+      className="language-switcher"
+    >
       {/* Menu déroulant pour sélectionner la langue */}
-      <select onChange={changeLanguage} value={i18n.language}>
-        <option value="fr">Français</option>
-        <option value="en">English</option>
-      </select>
-    </div>
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+    </select>
   );
 }

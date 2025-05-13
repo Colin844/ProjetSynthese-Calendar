@@ -6,6 +6,13 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 4px solid #0f172a;
+  flex-wrap: wrap;
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .header h1 {
@@ -15,41 +22,58 @@
   font-weight: bold;
 }
 
+.user-name {
+  background-color: #0f172a;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
 .header__nav {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.header__nav a {
+.header__nav a,
+.header__nav .nav-button {
   color: white;
+  background: transparent;
   text-decoration: none;
   font-weight: 500;
   padding: 6px 10px;
+  border: 1px solid transparent;
   border-radius: 6px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.header__nav a:hover {
+.header__nav a:hover,
+.header__nav .nav-button:hover {
   background-color: rgba(255, 255, 255, 0.15);
+  border-color: white;
+  cursor: pointer;
 }
 
-.header__nav span {
-  font-weight: 500;
-  margin-right: 0.5rem;
+.nav-button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  outline: none;
 }
 
-.header__nav button {
+.language-switcher {
+  margin-left: 0.5rem;
   background-color: white;
   color: #1e3a8a;
-  border: none;
-  padding: 6px 12px;
+  padding: 4px 8px;
   border-radius: 6px;
-  font-weight: bold;
+  font-weight: 500;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
-.header__nav button:hover {
-  background-color: #f1f5f9;
+.language-switcher:hover {
+  background-color: #e0e7ff;
 }

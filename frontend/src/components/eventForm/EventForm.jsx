@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext/AuthContext";
 import { useTranslation } from "react-i18next";
+import "../Form.css";
 
 const EventForm = ({ eventInitial = null }) => {
   const [eventName, setEventName] = useState("");
@@ -13,7 +14,7 @@ const EventForm = ({ eventInitial = null }) => {
   const { token } = useContext(AuthContext);
 
   const navigate = useNavigate();
-   const { t } = useTranslation();
+  const { t } = useTranslation();
 
   // Préremplir les champs si on est en mode édition
   useEffect(() => {

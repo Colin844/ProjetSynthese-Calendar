@@ -1,0 +1,82 @@
+/* Style général pour les formulaires */
+form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1e3a8a;
+  font-size: 1.5rem;
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+form input:focus {
+  border-color: #1e3a8a;
+  outline: none;
+  box-shadow: 0 0 4px rgba(30, 58, 138, 0.5);
+}
+
+form .error {
+  color: #e63946;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+form .button {
+  width: 100%;
+  padding: 10px;
+  background-color: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+form .button:hover {
+  background-color: #0f172a;
+}
+
+form .redirect-register,
+form .redirect-login {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+form .redirect-register a,
+form .redirect-login a {
+  color: #1e3a8a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+form .redirect-register a:hover,
+form .redirect-login a:hover {
+  text-decoration: underline;
+}

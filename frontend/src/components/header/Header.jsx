@@ -8,7 +8,7 @@ import "./Header.css";
 const Header = () => {
   const { isLoggedIn, logout, nom } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { t } = useTranslation();  // Accès à la fonction de traduction
+  const { t } = useTranslation();
 
   const handleLogout = () => {
     // Déconnecter l'utilisateur et rediriger vers la page d'accueil
@@ -18,7 +18,10 @@ const Header = () => {
 
   return (
     <header className="header">
-      <h1>CAL3ND4R</h1>
+      <div className="header__left">
+        {isLoggedIn && <span className="user-name">{nom}</span>}
+        <h1>{t("header.calendar")}</h1>
+      </div>
 
       <nav className="header__nav">
         <Link to="/">{t("header.accueil")}</Link>
@@ -28,10 +31,9 @@ const Header = () => {
         {!isLoggedIn && <Link to="/login">{t("header.login")}</Link>}
 
         {isLoggedIn && (
-          <>
-            <span>{t("header.welcome")}, {nom || "Utilisateur"}</span>
-            <button onClick={handleLogout}>{t("header.logout")}</button>
-          </>
+          <button className="nav-button" onClick={handleLogout}>
+            {t("header.logout")}
+          </button>
         )}
         {/* Composant de changement de langue */}
         <LanguageSwitcher />
