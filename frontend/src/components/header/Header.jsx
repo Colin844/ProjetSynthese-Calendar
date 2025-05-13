@@ -19,23 +19,23 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__left">
-        {isLoggedIn && <span className="user-name">{nom}</span>}
         <h1>{t("header.calendar")}</h1>
+        {isLoggedIn && (
+          <span className="header__welcome">
+            {t("header.welcome")}, {nom}
+          </span>
+        )}
       </div>
 
       <nav className="header__nav">
         <Link to="/">{t("header.accueil")}</Link>
-
         {isLoggedIn && <Link to="/addEvent">{t("header.add_event")}</Link>}
-
         {!isLoggedIn && <Link to="/login">{t("header.login")}</Link>}
-
         {isLoggedIn && (
           <button className="nav-button" onClick={handleLogout}>
             {t("header.logout")}
           </button>
         )}
-        {/* Composant de changement de langue */}
         <LanguageSwitcher />
       </nav>
     </header>
