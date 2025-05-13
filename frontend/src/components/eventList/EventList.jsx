@@ -1,9 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../authContext/AuthContext";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const EventList = () => {
   const [evenements, setEvenements] = useState([]);
   const { token } = useContext(AuthContext);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const chargerEvenements = async () => {
@@ -29,15 +33,24 @@ const EventList = () => {
     chargerEvenements();
   }, [token]);
 
+  const modifierEvent = (id) => {
+    navigate(`/editEvent/${id}`);
+  };
+
   return (
     <aside className="evenements-avenir">
-      <h3>À venir</h3>
+      <h3>{t("event.upcoming")}</h3>
       <ul>
         {evenements.length === 0 ? (
-          <li>Aucun événement prévu.</li>
+          <li>{t("event.none")}</li>
         ) : (
           evenements.map((ev) => (
-            <li key={ev.id}>
+            <li
+              key={ev.id}
+              onClick={() => modifierEvent(ev.id)}
+              className="event-item"
+              style={{ cursor: "pointer" }}
+            >
               <strong>{ev.titre}</strong> — {ev.date}
             </li>
           ))

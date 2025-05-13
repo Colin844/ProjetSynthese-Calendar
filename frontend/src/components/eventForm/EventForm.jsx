@@ -1,34 +1,56 @@
 import { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext/AuthContext";
 import { useTranslation } from "react-i18next";
-import "../Form.css";
 
-const EventForm = ({ eventInitial = null }) => {
+const EventForm = () => {
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventTime, setEventTime] = useState("");
   const [erreur, setErreur] = useState("");
-  const { token } = useContext(AuthContext);
 
-  const navigate = useNavigate();
+  const { token } = useContext(AuthContext);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { id } = useParams(); // récupère ID si existe
+
+  const modeEdition = !!id;
 
   // Préremplir les champs si on est en mode édition
   useEffect(() => {
-    if (eventInitial) {
-      setEventName(eventInitial.eventName || "");
-      setEventDescription(eventInitial.eventDescription || "");
-      setEventDate(eventInitial.eventDate || "");
-      setEventTime(eventInitial.eventTime || "");
+    const chargerEvenement = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/evenements/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await response.json();
+        if (response.ok) {
+          setEventName(data.evenement.titre);
+          setEventDescription(data.evenement.description || "");
+          setEventDate(data.evenement.date);
+          setEventTime(data.evenement.heure || "");
+        } else {
+          throw new Error(data.message || t("event.error_load"));
+        }
+      } catch (err) {
+        setErreur(err.message);
+      }
+    };
+
+    if (modeEdition) {
+      chargerEvenement();
     }
-  }, [eventInitial]);
+  }, [id, token, t, modeEdition]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (!eventName || !eventDate) {
       setErreur(t("event.required_error"));
       return;
@@ -43,14 +65,14 @@ const EventForm = ({ eventInitial = null }) => {
 
     try {
       const response = await fetch(
-        eventInitial
-          ? `http://localhost:5000/api/evenements/${eventInitial.id}`
+        modeEdition
+          ? `http://localhost:5000/api/evenements/${id}`
           : "http://localhost:5000/api/evenements",
         {
-          method: eventInitial ? "PATCH" : "POST",
+          method: modeEdition ? "PATCH" : "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(payload),
         }
@@ -59,7 +81,7 @@ const EventForm = ({ eventInitial = null }) => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Erreur de sauvegarde");
+        throw new Error(data.message || "Erreur");
       }
 
       navigate("/");
@@ -67,10 +89,6 @@ const EventForm = ({ eventInitial = null }) => {
       setErreur(err.message);
     }
   };
-
-  // Vérifier si mode modifier événement ou ajouter événement
-  // Si id de l'événement initial existe, on est en mode édition
-  const modeEdition = !!eventInitial?.id;
 
   return (
     <form onSubmit={handleSubmit} className="event-form">
@@ -117,16 +135,6 @@ const EventForm = ({ eventInitial = null }) => {
       </button>
     </form>
   );
-};
-
-EventForm.propTypes = {
-  eventInitial: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    eventName: PropTypes.string,
-    eventDescription: PropTypes.string,
-    eventDate: PropTypes.string,
-    eventTime: PropTypes.string,
-  }),
 };
 
 export default EventForm;

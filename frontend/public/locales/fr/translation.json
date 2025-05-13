@@ -34,7 +34,9 @@
     "description": "Description de l'événement",
     "date": "Date de l'événement",
     "time": "Heure de l'événement",
-    "required_error": "Veuillez remplir le titre et la date de l'événement."
+    "required_error": "Veuillez remplir le titre et la date de l'événement.",
+    "upcoming": "À venir",
+    "none": "Aucun événement prévu."
   },
   "calendar": {
     "days": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
