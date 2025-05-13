@@ -5,13 +5,27 @@
     "login": "Connexion",
     "add_event": "Ajouter un événement",
     "calendar": "CAL3ND4R",
-    "accueil" : "Accueil"
+    "accueil": "Accueil"
   },
   "login": {
     "title": "Connexion",
     "email": "Adresse Courriel",
     "password": "Mot de passe",
-    "submit": "Se connecter"
+    "submit": "Se connecter",
+    "no_account": "Vous n'avez pas de compte ?",
+    "register_here": "Inscrivez-vous ici",
+    "error_invalid": "Adresse ou mot de passe invalide."
+  },
+  "register": {
+    "title": "Créer un compte",
+    "first_name": "Prénom",
+    "last_name": "Nom de famille",
+    "email": "Adresse Courriel",
+    "password": "Mot de passe",
+    "submit": "S'inscrire",
+    "error_required": "Tous les champs sont requis.",
+    "error_generic": "Erreur lors de l'inscription.",
+    "login_redirect": "Vous avez déjà un compte ?"
   },
   "event": {
     "create": "Créer un événement",
@@ -20,7 +34,7 @@
     "description": "Description de l'événement",
     "date": "Date de l'événement",
     "time": "Heure de l'événement",
-    "required_error": "Veuillez remplir le titre et la date de l'événement."  
+    "required_error": "Veuillez remplir le titre et la date de l'événement."
   },
   "calendar": {
     "days": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],

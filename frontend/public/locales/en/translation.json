@@ -5,13 +5,27 @@
     "login": "Login",
     "add_event": "Add Event",
     "calendar": "CAL3ND4R",
-    "accueil" : "Home"
+    "accueil": "Home"
   },
   "login": {
     "title": "Login",
     "email": "Email Address",
     "password": "Password",
-    "submit": "Log In"
+    "submit": "Log In",
+    "no_account": "Don't have an account?",
+    "register_here": "Register here",
+    "error_invalid": "Invalid email or password."
+  },
+  "register": {
+    "title": "Create Account",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email Address",
+    "password": "Password",
+    "submit": "Register",
+    "error_required": "All fields are required.",
+    "error_generic": "Error during registration.",
+    "login_redirect": "Already have an account?"
   },
   "event": {
     "create": "Create Event",

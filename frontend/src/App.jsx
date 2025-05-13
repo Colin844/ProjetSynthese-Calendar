@@ -12,6 +12,7 @@ import Calendar from "./components/Calendar/Calendar";
 import LoginForm from "./components/loginForm/LoginForm";
 import Header from "./components/header/Header";
 import EventForm from "./components/eventForm/EventForm";
+import RegisterForm from "./components/registerForm/RegisterForm";
 import "./App.css";
 
 const AppRoutes = () => {
@@ -31,6 +32,7 @@ const AppRoutes = () => {
         { path: "/login", element: <LoginForm /> },
         { path: "/addEvent", element: <Navigate to="/login" /> },
         { path: "/editEvent/:id", element: <Navigate to="/login" /> },
+        { path: "/register", element: <RegisterForm /> },
       ],
     },
   ]);
@@ -49,6 +51,7 @@ const AppRoutes = () => {
         { path: "/login", element: <Navigate to="/" /> },
         { path: "/addEvent", element: <EventForm /> },
         { path: "/editEvent/:id", element: <EventForm /> },
+        { path: "/register", element: <Navigate to="/" /> },
       ],
     },
   ]);

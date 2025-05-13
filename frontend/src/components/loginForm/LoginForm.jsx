@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../authContext/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const LoginForm = () => {
@@ -72,6 +73,10 @@ const LoginForm = () => {
       <button className="button" type="submit">
         {t("login.submit")}
       </button>
+      <p className="redirect-register">
+        {t("login.no_account")}{" "}
+        <Link to="/register">{t("login.register_here")}</Link>
+      </p>
     </form>
   );
 };
