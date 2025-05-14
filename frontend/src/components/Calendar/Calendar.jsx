@@ -64,9 +64,17 @@ function Calendar() {
     const eventsDuJour = getEvenementsPourJour(i);
     const eventsToShow = eventsDuJour.slice(0, 3);
     const moreCount = eventsDuJour.length - eventsToShow.length;
+    // Création chaîne de caractères au format YYYY-MM-DD
+    const jourString = `${annee}-${String(mois + 1).padStart(2, "0")}-${String(
+      i
+    ).padStart(2, "0")}`;
 
     jours.push(
-      <div key={i} className="jour">
+      <div
+        key={i}
+        onClick={() => navigate(`/day/${jourString}`)}
+        className="jour"
+      >
         <span className="numero-jour">{i}</span>
         {eventsToShow.map((ev) => (
           <div
