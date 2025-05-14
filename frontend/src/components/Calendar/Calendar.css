@@ -159,3 +159,40 @@
   margin-bottom: 0.75rem;
   line-height: 1.4;
 }
+
+
+@media (max-width: 768px) {
+  .calendrier-wrapper {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .calendrier {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .semaines {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+
+  .evenements-avenir {
+    width: 100%;
+    max-width: none;
+    padding: 1rem;
+  }
+
+  
+}
+
+@media (max-width: 480px) {
+  .event {
+    font-size: 0.75rem;
+  }
+
+  .numero-jour {
+    font-size: 0.75rem;
+  }
+}

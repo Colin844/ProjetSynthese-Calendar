@@ -3,16 +3,25 @@ import PropTypes from "prop-types";
 import { AuthContext } from "./AuthContext";
 
 export const AuthContextProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState(null);
-  const [userId, setUserId] = useState(null);
-  const [nom, setNom] = useState(null);
+    // Récupère le token depuis localStorage si présent 
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem("token") !== null;
+  });
+  // Initialise les valeurs depuis localStorage pour maintenir la session
+  const [token, setToken] = useState(() => localStorage.getItem("token"));
+  const [userId, setUserId] = useState(() => localStorage.getItem("userId"));
+  const [nom, setNom] = useState(() => localStorage.getItem("nom"));
 
   const login = (token, userId, nom) => {
     setToken(token);
     setUserId(userId);
     setNom(nom);
     setIsLoggedIn(true);
+
+        // Sauvegarde les données de session dans localStorage
+    localStorage.setItem("token", token);
+    localStorage.setItem("userId", userId);
+    localStorage.setItem("nom", nom);
   };
 
   const logout = () => {
@@ -20,6 +29,11 @@ export const AuthContextProvider = ({ children }) => {
     setUserId(null);
     setNom(null);
     setIsLoggedIn(false);
+
+    // Supprime les données de session du localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("nom");
   };
 
   return (
