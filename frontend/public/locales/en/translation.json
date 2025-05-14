@@ -70,5 +70,10 @@
   "calendar": {
     "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     "locale": "en-US"
+  },
+  "modal": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "confirm_message": "Are you sure you want to delete \"{{title}}\"?"
   }
 }

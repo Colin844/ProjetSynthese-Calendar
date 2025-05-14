@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../authContext/AuthContext";
 import { useTranslation } from "react-i18next";
 import "./VueJour.css";
+import Modal from "../modal/Modal";
 
 const VueJour = () => {
   const { date } = useParams();
@@ -10,6 +11,8 @@ const VueJour = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [evenements, setEvenements] = useState([]);
+  const [modalOuvert, setModalOuvert] = useState(false);
+  const [eventASupprimer, setEventASupprimer] = useState(null);
 
   const jourDate = new Date(date);
   const nomJour = t(`day.days.${jourDate.getDay()}`);
@@ -92,7 +95,12 @@ const VueJour = () => {
                 <button onClick={() => navigate(`/editEvent/${ev.id}`)}>
                   {t("event.edit")}
                 </button>
-                <button onClick={() => supprimerEvenement(ev.id)}>
+                <button
+                  onClick={() => {
+                    setEventASupprimer(ev);
+                    setModalOuvert(true);
+                  }}
+                >
                   {t("event.delete") || "Delete"}
                 </button>
               </div>
@@ -100,6 +108,19 @@ const VueJour = () => {
           ))
         )}
       </ul>
+      <Modal
+        isOpen={modalOuvert}
+        message={`Voulez-vous vraiment supprimer "${eventASupprimer?.titre}" ?`}
+        onConfirm={() => {
+          supprimerEvenement(eventASupprimer.id);
+          setModalOuvert(false);
+          setEventASupprimer(null);
+        }}
+        onCancel={() => {
+          setModalOuvert(false);
+          setEventASupprimer(null);
+        }}
+      />
     </div>
   );
 };

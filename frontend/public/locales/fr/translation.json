@@ -70,5 +70,10 @@
   "calendar": {
     "days": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
     "locale": "fr-FR"
+  },
+  "modal": {
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "confirm_message": "Voulez-vous vraiment supprimer \"{{title}}\" ?"
   }
 }
