@@ -6,6 +6,7 @@ const evenementSchema = new mongoose.Schema({
   description: String,
   date: { type: String, required: true },
   heure: String,
+   lieu: { type: String, required: true },
   complete: { type: Boolean, default: false }
 });
 

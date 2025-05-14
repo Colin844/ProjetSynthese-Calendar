@@ -26,7 +26,7 @@ export const ajouterEvenement = async (req, res, next) => {
   return res.status(422).json({ erreurs: errors.array() });
 }
 
-  const { titre, description, date, heure } = req.body;
+  const { titre, description, date, heure, lieu } = req.body;
 
   try {
     // Vérifie si un événement avec le même titre et la même date existe déjà pour l'utilisateur
@@ -52,6 +52,7 @@ export const ajouterEvenement = async (req, res, next) => {
       description,
       date,
       heure,
+      lieu,
       complete: false,
     });
 
@@ -72,7 +73,7 @@ export const ajouterEvenement = async (req, res, next) => {
 // PATCH /api/evenements/:id
 export const modifierEvenement = async (req, res, next) => {
   const evenementId = req.params.id;
-  const { titre, description, date, heure, complete } = req.body;
+  const { titre, description, date, heure,lieu,  complete } = req.body;
 
   try {
     // Cherche l’événement par ID uniquement
@@ -98,6 +99,7 @@ export const modifierEvenement = async (req, res, next) => {
     if (description !== undefined) evenement.description = description;
     if (date !== undefined) evenement.date = date;
     if (heure !== undefined) evenement.heure = heure;
+    if (lieu !== undefined) evenement.lieu = lieu;
     if (complete !== undefined) evenement.complete = complete;
 
     await evenement.save();

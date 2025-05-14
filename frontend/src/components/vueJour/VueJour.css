@@ -70,3 +70,9 @@ button:hover {
   justify-content: flex-end;
   gap: 10px;
 }
+
+.event-lieu {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 6px;
+}

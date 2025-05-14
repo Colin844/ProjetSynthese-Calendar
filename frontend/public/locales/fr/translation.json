@@ -38,7 +38,8 @@
     "required_error": "Veuillez remplir le titre et la date de l'événement.",
     "upcoming": "À venir",
     "none": "Aucun événement prévu.",
-    "more": "autres"
+    "more": "autres",
+    "place": "Lieu"
   },
   "day": {
     "previous": "Jour précédent",

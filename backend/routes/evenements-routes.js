@@ -51,6 +51,8 @@ router.post(
     check("date")
       .isISO8601()
       .withMessage("Le format de la date est invalide (YYYY-MM-DD)."),
+    check("lieu").not().isEmpty().withMessage("Le lieu est requis."),
+
   ],
   ajouterEvenement
 );
@@ -71,6 +73,13 @@ router.patch(
     check("date").optional().isISO8601().withMessage("Date invalide."),
     check("heure").optional().isString(),
     check("complete").optional().isBoolean().withMessage("Doit être booléen."),
+    check("lieu").optional().isString().withMessage("Le lieu doit être une chaîne de caractères."),
+    check("lieu")
+  .optional()
+  .not()
+  .isEmpty()
+  .withMessage("Le lieu ne peut pas être vide."),
+
   ],
   modifierEvenement
 );

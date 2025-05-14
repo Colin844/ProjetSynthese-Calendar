@@ -8,6 +8,7 @@ const EventForm = () => {
   const [eventDescription, setEventDescription] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventTime, setEventTime] = useState("");
+  const [eventLieu, setEventLieu] = useState("");
   const [erreur, setErreur] = useState("");
 
   const { token } = useContext(AuthContext);
@@ -36,6 +37,7 @@ const EventForm = () => {
           setEventDescription(data.evenement.description || "");
           setEventDate(data.evenement.date);
           setEventTime(data.evenement.heure || "");
+          setEventLieu(data.evenement.lieu || "");
         } else {
           throw new Error(data.message || t("event.error_load"));
         }
@@ -61,6 +63,7 @@ const EventForm = () => {
       description: eventDescription,
       date: eventDate,
       heure: eventTime,
+      lieu: eventLieu,
     };
 
     try {
@@ -126,6 +129,15 @@ const EventForm = () => {
         type="time"
         value={eventTime}
         onChange={(e) => setEventTime(e.target.value)}
+      />
+
+      <label htmlFor="eventLieu">{t("event.place")}</label>
+      <input
+        id="eventLieu"
+        type="text"
+        value={eventLieu}
+        onChange={(e) => setEventLieu(e.target.value)}
+        required
       />
 
       {erreur && <p className="error">{erreur}</p>}

@@ -24,7 +24,9 @@ const VueJour = () => {
   useEffect(() => {
     const chargerEvenements = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}evenements/date/${date}`, {
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}evenements/date/${date}`,
+          {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
@@ -50,7 +52,9 @@ const VueJour = () => {
 
   const supprimerEvenement = async (id) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}evenements/${id}`, {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}evenements/${id}`,
+        {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -85,8 +89,9 @@ const VueJour = () => {
             <li key={ev.id} className="evenement">
               <div className="event-header">
                 <strong>{ev.titre}</strong>
-                <span>({ev.heure || "—"})</span>
+                <span> • {ev.heure || "—"}</span>
               </div>
+              <div className="event-lieu">{ev.lieu}</div>
               <div className="event-actions">
                 <button onClick={() => navigate(`/editEvent/${ev.id}`)}>
                   {t("event.edit")}

@@ -38,7 +38,8 @@
     "required_error": "Please fill in the event title and date.",
     "upcoming": "Upcoming",
     "none": "No events scheduled.",
-    "more": "more"
+    "more": "more",
+     "place": "Place"
   },
   "day": {
     "previous": "Previous day",
