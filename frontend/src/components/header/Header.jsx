@@ -14,6 +14,9 @@ const Header = () => {
     // Déconnecter l'utilisateur et rediriger vers la page d'accueil
     logout();
     navigate("/");
+
+    // Forcer le rafraîchissement (vider données liées à l'utilisateur)
+    window.location.reload();
   };
 
   return (

@@ -4,6 +4,7 @@ import { connectDB } from "./util/bd.js";
 
 import userRoutes from "./routes/users-routes.js";
 import evenementRoutes from "./routes/evenements-routes.js";
+import errorHandler from "./handlers/errorHandler.js";
 
 // Création de l'application Express
 const app = express();
@@ -34,6 +35,14 @@ app.use((req, res, next) => {
 // Déclaration des routes
 app.use("/api/users", userRoutes);
 app.use("/api/evenements", evenementRoutes);
+
+// Middleware pour les routes non trouvées
+app.use((req, res, next) => {
+  res.status(404).json({ message: "Route introuvable" });
+});
+
+// Middleware de gestion des erreurs
+app.use(errorHandler);
 
 // Démarrage du serveur + Connexion BD
 app.listen(PORT, () => {
