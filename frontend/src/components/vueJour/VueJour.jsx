@@ -24,9 +24,7 @@ const VueJour = () => {
   useEffect(() => {
     const chargerEvenements = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:5000/api/evenements/date/${date}`,
-          {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}evenements/date/${date}`, {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
@@ -52,9 +50,7 @@ const VueJour = () => {
 
   const supprimerEvenement = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/evenements/${id}`,
-        {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}evenements/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         }

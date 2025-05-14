@@ -18,7 +18,7 @@ const EventList = () => {
 
     const chargerEvenements = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/evenements", {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}evenements`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

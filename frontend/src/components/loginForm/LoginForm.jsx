@@ -18,10 +18,7 @@ const LoginForm = () => {
     event.preventDefault(); // Empêcher le rechargement de la page
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/users/connexion",
-        {
-          method: "POST",
+      const response =  await fetch(`${import.meta.env.VITE_BACKEND_URL}users/connexion`, {method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             courriel: email,
