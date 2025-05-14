@@ -49,10 +49,12 @@ function Calendar() {
     chargerEvenements();
   }, [token, mois, annee]);
 
-  const getEvenementsPourJour = (jour) => {
-    const dateStr = new Date(annee, mois, jour).toISOString().split("T")[0];
-    return evenements.filter((e) => e.date === dateStr);
-  };
+ const getEvenementsPourJour = (jour) => {
+  const dateStr = new Date(annee, mois, jour).toISOString().split("T")[0];
+  const aujourdHui = new Date().toISOString().split("T")[0];
+
+  return evenements.filter((e) => e.date === dateStr && e.date >= aujourdHui);
+};
 
   const jours = [];
   for (let i = 0; i < premierJourDuMois; i++) {

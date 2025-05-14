@@ -26,6 +26,7 @@
     "error_required": "Tous les champs sont requis.",
     "error_generic": "Erreur lors de l'inscription.",
     "login_redirect": "Vous avez déjà un compte ?"
+     
   },
   "event": {
     "create": "Créer un événement",
@@ -39,7 +40,8 @@
     "upcoming": "À venir",
     "none": "Aucun événement prévu.",
     "more": "autres",
-    "place": "Lieu"
+    "place": "Lieu",
+    "event_expired" : "La date ne peut pas être dans le passé."
   },
   "day": {
     "previous": "Jour précédent",

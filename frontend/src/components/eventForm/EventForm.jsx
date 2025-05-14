@@ -57,6 +57,11 @@ const EventForm = () => {
       setErreur(t("event.required_error"));
       return;
     }
+     const aujourdHui = new Date().toISOString().split("T")[0];
+  if (eventDate < aujourdHui) {
+      setErreur(t("event.event_expired"));
+    return;
+  }
 
     const payload = {
       titre: eventName,

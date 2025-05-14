@@ -3,10 +3,15 @@ import Evenement from "../models/evenement.js";
 import HttpError from "../util/http-error.js";
 import User from "../models/user.js";
 
-
 // GET /api/evenements
 export const listerEvenements = async (req, res, next) => {
   try {
+    const aujourdHui = new Date().toISOString().split("T")[0];
+    // Supprimer tous les événements antérieurs à aujourd'hui pour cet utilisateur
+    await Evenement.deleteMany({
+      userId: req.user._id,
+      date: { $lt: aujourdHui }, // date inférieure à aujourd'hui = événement passé
+    });
     const evenements = await Evenement.find({ userId: req.user._id }).sort({
       date: 1,
     });
@@ -22,11 +27,17 @@ export const listerEvenements = async (req, res, next) => {
 // POST /api/evenements
 export const ajouterEvenement = async (req, res, next) => {
   const errors = validationResult(req);
- if (!errors.isEmpty()) {
-  return res.status(422).json({ erreurs: errors.array() });
-}
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ erreurs: errors.array() });
+  }
 
   const { titre, description, date, heure, lieu } = req.body;
+  const aujourdHui = new Date().toISOString().split("T")[0];
+  if (date < aujourdHui) {
+    return next(
+      new HttpError("Impossible d'ajouter un événement dans le passé.", 400)
+    );
+  }
 
   try {
     // Vérifie si un événement avec le même titre et la même date existe déjà pour l'utilisateur
@@ -73,7 +84,13 @@ export const ajouterEvenement = async (req, res, next) => {
 // PATCH /api/evenements/:id
 export const modifierEvenement = async (req, res, next) => {
   const evenementId = req.params.id;
-  const { titre, description, date, heure,lieu,  complete } = req.body;
+  const { titre, description, date, heure, lieu, complete } = req.body;
+  const aujourdHui = new Date().toISOString().split("T")[0];
+  if (date < aujourdHui) {
+    return next(
+      new HttpError("Impossible d’ajouter un événement dans le passé.", 400)
+    );
+  }
 
   try {
     // Cherche l’événement par ID uniquement

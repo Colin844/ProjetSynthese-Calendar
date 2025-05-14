@@ -39,7 +39,9 @@
     "upcoming": "Upcoming",
     "none": "No events scheduled.",
     "more": "more",
-     "place": "Place"
+     "place": "Place",
+     "event_expired" : "The date cannot be in the past."
+
   },
   "day": {
     "previous": "Previous day",
