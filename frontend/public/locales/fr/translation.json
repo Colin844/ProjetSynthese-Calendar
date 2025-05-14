@@ -30,6 +30,7 @@
   "event": {
     "create": "Créer un événement",
     "edit": "Modifier l'événement",
+    "delete": "Supprimer l'événement",
     "name": "Nom de l'événement",
     "description": "Description de l'événement",
     "date": "Date de l'événement",
@@ -38,6 +39,33 @@
     "upcoming": "À venir",
     "none": "Aucun événement prévu.",
     "more": "autres"
+  },
+  "day": {
+    "previous": "Jour précédent",
+    "next": "Jour suivant",
+    "months": {
+      "0": "janvier",
+      "1": "février",
+      "2": "mars",
+      "3": "avril",
+      "4": "mai",
+      "5": "juin",
+      "6": "juillet",
+      "7": "août",
+      "8": "septembre",
+      "9": "octobre",
+      "10": "novembre",
+      "11": "décembre"
+    },
+    "days": {
+      "0": "dimanche",
+      "1": "lundi",
+      "2": "mardi",
+      "3": "mercredi",
+      "4": "jeudi",
+      "5": "vendredi",
+      "6": "samedi"
+    }
   },
   "calendar": {
     "days": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],

@@ -13,6 +13,7 @@ import LoginForm from "./components/loginForm/LoginForm";
 import Header from "./components/header/Header";
 import EventForm from "./components/eventForm/EventForm";
 import RegisterForm from "./components/registerForm/RegisterForm";
+import VueJour from "./components/vueJour/VueJour";
 import "./App.css";
 
 const AppRoutes = () => {
@@ -33,6 +34,7 @@ const AppRoutes = () => {
         { path: "/addEvent", element: <Navigate to="/login" /> },
         { path: "/editEvent/:id", element: <Navigate to="/login" /> },
         { path: "/register", element: <RegisterForm /> },
+        { path: "/day/:date", element: <Navigate to="/login" /> },
       ],
     },
   ]);
@@ -52,6 +54,7 @@ const AppRoutes = () => {
         { path: "/addEvent", element: <EventForm /> },
         { path: "/editEvent/:id", element: <EventForm /> },
         { path: "/register", element: <Navigate to="/" /> },
+        { path: "/day/:date", element: <VueJour /> },
       ],
     },
   ]);
