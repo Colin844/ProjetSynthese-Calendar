@@ -6,32 +6,40 @@ import { AuthContext } from "../authContext/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function Calendar() {
-  // Initialise mois et année avec la date d'aujourd'hui
+  // Obtenir la date du jour et initialiser l'état du mois et de l'année affichés
   const today = new Date();
   const [mois, setMois] = useState(today.getMonth());
   const [annee, setAnnee] = useState(today.getFullYear());
+
+  // Liste des événements du mois affiché
   const [evenements, setEvenements] = useState([]);
+
+  // Traduction i18next
   const { t } = useTranslation();
+
+  // Authentification pour l'appel API
   const { token } = useContext(AuthContext);
+
+  // Pour naviguer entre les pages 
   const navigate = useNavigate();
+
+  // Traduction des jours de la semaine 
   const joursSemaine = t("calendar.days", { returnObjects: true });
 
-  // Retourne le nombre total de jours dans un mois donné
+  // Obtenir le nombre de jours dans un mois donné
   const getJoursDansMois = (mois, annee) => {
-    // en fixant le jour à 0, on obtient le dernier jour du mois précédent (mois+1)
     return new Date(annee, mois + 1, 0).getDate();
   };
 
-  // Indice (0-6) du premier jour du mois (0 = Dimanche)
+  // Obtenir l'indice du premier jour du mois (0 = Dimanche)
   const premierJourDuMois = new Date(annee, mois, 1).getDay();
   const joursDuMois = getJoursDansMois(mois, annee);
 
-  // Charger les événements dans le calendrier
-  // On utilise useEffect pour charger les événements à chaque fois que le mois ou l'année change
+  // Charger les événements quand le mois ou l'année change
   useEffect(() => {
     const chargerEvenements = async () => {
       try {
-        const response =  await fetch(`${import.meta.env.VITE_BACKEND_URL}evenements`,{
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}evenements`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -49,42 +57,44 @@ function Calendar() {
     chargerEvenements();
   }, [token, mois, annee]);
 
- const getEvenementsPourJour = (jour) => {
-  const dateStr = new Date(annee, mois, jour).toISOString().split("T")[0];
-  const aujourdHui = new Date().toISOString().split("T")[0];
+  // Obtenir les événements pour une journée donnée
+  const getEvenementsPourJour = (jour) => {
+    const dateStr = new Date(annee, mois, jour).toISOString().split("T")[0];
+    const aujourdHui = new Date().toISOString().split("T")[0];
 
-  return evenements.filter((e) => e.date === dateStr && e.date >= aujourdHui);
-};
+    return evenements.filter((e) => e.date === dateStr && e.date >= aujourdHui);
+  };
 
   const jours = [];
+
+  // Remplir les cases vides avant le premier jour du mois
   for (let i = 0; i < premierJourDuMois; i++) {
     jours.push(<div key={`vide-${i}`} className="jour vide" />);
   }
 
+  // Déterminer la classe CSS selon la priorité de l'événement
+  const getPriorityClass = (priorite) => {
+    switch (priorite?.toLowerCase()) {
+      case "critique":
+        return "event-priorite-critique";
+      case "elevee":
+        return "event-priorite-haute";
+      case "normale":
+        return "event-priorite-moyenne";
+      case "basse":
+        return "event-priorite-basse";
+      default:
+        return "";
+    }
+  };
 
-const getPriorityClass = (priorite) => {
-  switch (priorite?.toLowerCase()) {
-    case "critique":
-      return "event-priorite-critique";
-    case "elevee":
-      return "event-priorite-haute";
-    case "normale":
-      return "event-priorite-moyenne";
-    case "basse":
-      return "event-priorite-basse";
-    default:
-      return "";
-  }
-};
-  // Puis les jours numérotés
+  // Afficher chaque jour du mois avec les événements associés
   for (let i = 1; i <= joursDuMois; i++) {
     const eventsDuJour = getEvenementsPourJour(i);
-    const eventsToShow = eventsDuJour.slice(0, 3);
+    const eventsToShow = eventsDuJour.slice(0, 3); // Affiche max 3 événements
     const moreCount = eventsDuJour.length - eventsToShow.length;
-    // Création chaîne de caractères au format YYYY-MM-DD
-    const jourString = `${annee}-${String(mois + 1).padStart(2, "0")}-${String(
-      i
-    ).padStart(2, "0")}`;
+  // Création chaîne de caractères au format YYYY-MM-DD
+    const jourString = `${annee}-${String(mois + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
 
     jours.push(
       <div
@@ -97,7 +107,10 @@ const getPriorityClass = (priorite) => {
           <div
             key={ev.id}
             className={`event ${getPriorityClass(ev.priorite)}`}
-            onClick={() => navigate(`/editEvent/${ev.id}`)}
+            onClick={(e) => {
+              e.stopPropagation(); // Évite la redirection vers /day/ quand on clique sur l'événement
+              navigate(`/editEvent/${ev.id}`);
+            }}
           >
             {ev.titre}
           </div>
@@ -111,33 +124,30 @@ const getPriorityClass = (priorite) => {
     );
   }
 
-  // Gère le changement de mois et l'éventuel passage d'année
+  // Changer de mois (offset : +1 = mois suivant, -1 = mois précédent)
   const changerMois = (offset) => {
     let nouveauMois = mois + offset;
     let nouvelleAnnee = annee;
     if (nouveauMois > 11) {
-      // Si on dépasse Décembre, on revient à Janvier de l'année suivante
       nouveauMois = 0;
       nouvelleAnnee++;
     } else if (nouveauMois < 0) {
-      // Si on passe avant Janvier, on revient à Décembre de l'année précédente
       nouveauMois = 11;
       nouvelleAnnee--;
     }
+
     setMois(nouveauMois);
     setAnnee(nouvelleAnnee);
   };
 
-
-
-
   return (
     <div className="calendrier-wrapper">
       <div className="calendrier">
+        {/* En-tête avec navigation entre les mois */}
         <div className="header">
           <button onClick={() => changerMois(-1)}>&lt;</button>
           <h2>
-            {/* Affiche le mois et l'année en français */}
+             {/* Affiche le mois et l'année en français */}
             {new Date(annee, mois).toLocaleString(t("calendar.locale"), {
               month: "long",
               year: "numeric",
@@ -146,6 +156,7 @@ const getPriorityClass = (priorite) => {
           <button onClick={() => changerMois(1)}>&gt;</button>
         </div>
 
+        {/* Jours de la semaine */}
         <div className="semaines">
           {joursSemaine.map((j, index) => (
             <div key={index} className="jour semaine">
@@ -153,11 +164,12 @@ const getPriorityClass = (priorite) => {
             </div>
           ))}
 
+          {/* Affichage des jours avec événements */}
           {jours}
         </div>
       </div>
 
-      {/* Section des événements à venir */}
+      {/* Liste des événements à venir (droite) */}
       <EventList />
     </div>
   );

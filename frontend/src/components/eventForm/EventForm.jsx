@@ -109,71 +109,82 @@ const EventForm = () => {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="event-form">
-      <h2>{modeEdition ? t("event.edit") : t("event.create")}</h2>
+ return (
+  // Formulaire principal avec gestion de la soumission
+  <form onSubmit={handleSubmit} className="event-form">
 
-      <label htmlFor="eventName">{t("event.name")}</label>
-      <input
-        id="eventName"
-        type="text"
-        value={eventName}
-        onChange={(e) => setEventName(e.target.value)}
-        required
-      />
+    {/* Titre du formulaire : changer dynamiquement entre "Créer" et "Modifier" */}
+    <h2>{modeEdition ? t("event.edit") : t("event.create")}</h2>
 
-      <label htmlFor="eventDescription">{t("event.description")}</label>
-      <input
-        id="eventDescription"
-        type="text"
-        value={eventDescription}
-        onChange={(e) => setEventDescription(e.target.value)}
-      />
+    {/* Champ pour le nom de l'événement (obligatoire) */}
+    <label htmlFor="eventName">{t("event.name")}</label>
+    <input
+      id="eventName"
+      type="text"
+      value={eventName}
+      onChange={(e) => setEventName(e.target.value)}
+      required
+    />
 
-      <label htmlFor="eventDate">{t("event.date")}</label>
-      <input
-        id="eventDate"
-        type="date"
-        value={eventDate}
-        onChange={(e) => setEventDate(e.target.value)}
-        required
-      />
+    {/* Champ pour la description de l'événement (facultatif) */}
+    <label htmlFor="eventDescription">{t("event.description")}</label>
+    <input
+      id="eventDescription"
+      type="text"
+      value={eventDescription}
+      onChange={(e) => setEventDescription(e.target.value)}
+    />
 
-      <label htmlFor="eventTime">{t("event.time")}</label>
-      <input
-        id="eventTime"
-        type="time"
-        value={eventTime}
-        onChange={(e) => setEventTime(e.target.value)}
-      />
+    {/* Champ pour la date (obligatoire) */}
+    <label htmlFor="eventDate">{t("event.date")}</label>
+    <input
+      id="eventDate"
+      type="date"
+      value={eventDate}
+      onChange={(e) => setEventDate(e.target.value)}
+      required
+    />
 
-      <label htmlFor="eventLieu">{t("event.place")}</label>
-      <input
-        id="eventLieu"
-        type="text"
-        value={eventLieu}
-        onChange={(e) => setEventLieu(e.target.value)}
-        required
-      />
+    {/* Champ pour l'heure (facultatif) */}
+    <label htmlFor="eventTime">{t("event.time")}</label>
+    <input
+      id="eventTime"
+      type="time"
+      value={eventTime}
+      onChange={(e) => setEventTime(e.target.value)}
+    />
 
-      <label htmlFor="eventPriorite">{t("event.priority")}</label>
-      <Select
-        className="select-priorite"
-        id="eventPriorite"
-        options={optionsPriorite}
-        value={eventPriorite}
-        onChange={setEventPriorite}
-        placeholder={t("event.select_priority")}
-        isSearchable
-      />
+    {/* Champ pour le lieu (obligatoire) */}
+    <label htmlFor="eventLieu">{t("event.place")}</label>
+    <input
+      id="eventLieu"
+      type="text"
+      value={eventLieu}
+      onChange={(e) => setEventLieu(e.target.value)}
+      required
+    />
 
-      {erreur && <p className="error">{erreur}</p>}
+    {/* Menu déroulant pour sélectionner la priorité de l'événement */}
+    <label htmlFor="eventPriorite">{t("event.priority")}</label>
+    <Select
+      className="select-priorite"
+      id="eventPriorite"
+      options={optionsPriorite}
+      value={eventPriorite}
+      onChange={setEventPriorite}
+      placeholder={t("event.select_priority")}
+      isSearchable // permet à l'utilisateur de chercher une option
+    />
 
-      <button type="submit" className="button">
-        {modeEdition ? t("event.edit") : t("event.create")}
-      </button>
-    </form>
-  );
+    {/* Affichage d’un message d’erreur si présent */}
+    {erreur && <p className="error">{erreur}</p>}
+
+    {/* Bouton de soumission */}
+    <button type="submit" className="button">
+      {modeEdition ? t("event.edit") : t("event.create")}
+    </button>
+  </form>
+);
 };
 
 export default EventForm;

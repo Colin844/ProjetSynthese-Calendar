@@ -13,8 +13,8 @@ export const listerEvenements = async (req, res, next) => {
       date: { $lt: aujourdHui }, // date inférieure à aujourd'hui = événement passé
     });
     const evenements = await Evenement.find({ userId: req.user._id }).sort({
-      date: 1,
-    });
+      date: 1,  // Tri ascendant par date (du plus ancien au plus récent)
+    }); 
     res.status(200).json({
       evenements: evenements.map((e) => e.toObject({ getters: true })),
     });
