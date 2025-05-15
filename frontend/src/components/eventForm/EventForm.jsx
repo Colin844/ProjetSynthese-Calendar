@@ -33,7 +33,7 @@ const EventForm = () => {
     const chargerEvenement = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/evenements/${id}`,
+          `${import.meta.env.VITE_BACKEND_URL}evenements/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -85,8 +85,8 @@ const EventForm = () => {
     try {
       const response = await fetch(
         modeEdition
-          ? `http://localhost:5000/api/evenements/${id}`
-          : "http://localhost:5000/api/evenements",
+          ? `${import.meta.env.VITE_BACKEND_URL}evenements/${id}`
+          : `${import.meta.env.VITE_BACKEND_URL}evenements`,
         {
           method: modeEdition ? "PATCH" : "POST",
           headers: {
