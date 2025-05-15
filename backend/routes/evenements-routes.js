@@ -52,6 +52,10 @@ router.post(
       .isISO8601()
       .withMessage("Le format de la date est invalide (YYYY-MM-DD)."),
     check("lieu").not().isEmpty().withMessage("Le lieu est requis."),
+     check("priorite")
+      .optional()
+      .isIn(["critique", "elevee", "normale", "basse"])
+      .withMessage("La priorité doit être critique, elevee, normale ou basse."),
 
   ],
   ajouterEvenement
@@ -72,13 +76,15 @@ router.patch(
       .withMessage("Le titre ne peut pas être vide."),
     check("date").optional().isISO8601().withMessage("Date invalide."),
     check("heure").optional().isString(),
-    check("complete").optional().isBoolean().withMessage("Doit être booléen."),
     check("lieu").optional().isString().withMessage("Le lieu doit être une chaîne de caractères."),
     check("lieu")
   .optional()
   .not()
   .isEmpty()
-  .withMessage("Le lieu ne peut pas être vide."),
+  .withMessage("Le lieu ne peut pas être vide."), check("priorite")
+      .optional()
+      .isIn(["critique", "elevee", "normale", "basse"])
+      .withMessage("La priorité doit être critique, elevee, normale ou basse."),
 
   ],
   modifierEvenement

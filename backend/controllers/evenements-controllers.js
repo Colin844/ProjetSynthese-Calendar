@@ -31,7 +31,7 @@ export const ajouterEvenement = async (req, res, next) => {
     return res.status(422).json({ erreurs: errors.array() });
   }
 
-  const { titre, description, date, heure, lieu } = req.body;
+  const { titre, description, date, heure, lieu, priorite } = req.body;
   const aujourdHui = new Date().toISOString().split("T")[0];
   if (date < aujourdHui) {
     return next(
@@ -64,7 +64,8 @@ export const ajouterEvenement = async (req, res, next) => {
       date,
       heure,
       lieu,
-      complete: false,
+      priorite,
+     
     });
 
     await nouvelEvenement.save();
@@ -84,7 +85,7 @@ export const ajouterEvenement = async (req, res, next) => {
 // PATCH /api/evenements/:id
 export const modifierEvenement = async (req, res, next) => {
   const evenementId = req.params.id;
-  const { titre, description, date, heure, lieu, complete } = req.body;
+  const { titre, description, date, heure, lieu, priorite} = req.body;
   const aujourdHui = new Date().toISOString().split("T")[0];
   if (date < aujourdHui) {
     return next(
@@ -117,7 +118,8 @@ export const modifierEvenement = async (req, res, next) => {
     if (date !== undefined) evenement.date = date;
     if (heure !== undefined) evenement.heure = heure;
     if (lieu !== undefined) evenement.lieu = lieu;
-    if (complete !== undefined) evenement.complete = complete;
+    if (priorite !== undefined) evenement.priorite = priorite;
+    
 
     await evenement.save();
     res.status(200).json({ evenement: evenement.toObject({ getters: true }) });

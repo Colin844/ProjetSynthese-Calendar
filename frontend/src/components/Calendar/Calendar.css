@@ -196,3 +196,31 @@
     font-size: 0.75rem;
   }
 }
+
+.event-priorite-critique {
+  background-color: #ffe5e5;
+  border-left: 6px solid #cc0000;
+  color: #990000;
+}
+
+.event-priorite-haute {
+  background-color: #fff3cd;
+  border-left: 6px solid #ffc107;
+  color: #856404;
+}
+
+.event-priorite-moyenne {
+  background-color: #cce5ff;
+  border-left: 6px solid #007bff;
+  color: #004085;
+}
+
+.event-priorite-basse {
+  background-color: #e6ffea;
+  border-left: 6px solid #28a745;
+  color: #155724;
+}
+
+.select-priorite {
+  margin-bottom: 1rem;
+}

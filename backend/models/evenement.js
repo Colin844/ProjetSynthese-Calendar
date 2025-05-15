@@ -7,7 +7,12 @@ const evenementSchema = new mongoose.Schema({
   date: { type: String, required: true },
   heure: String,
    lieu: { type: String, required: true },
-  complete: { type: Boolean, default: false }
+   priorite: {
+    type: String,
+    enum: ["critique", "elevee", "normale", "basse"],
+    default: "normale"
+  }
+  
 });
 
 export default mongoose.model("Evenement", evenementSchema);

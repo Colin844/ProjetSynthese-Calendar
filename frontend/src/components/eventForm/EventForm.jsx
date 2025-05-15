@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext/AuthContext";
 import { useTranslation } from "react-i18next";
+import Select from "react-select";
 
 const EventForm = () => {
   const [eventName, setEventName] = useState("");
@@ -17,6 +18,15 @@ const EventForm = () => {
   const { id } = useParams(); // récupère ID si existe
 
   const modeEdition = !!id;
+
+  const optionsPriorite = [
+    { value: "critique", label: t("priorite.critique") },
+    { value: "elevee", label: t("priorite.elevee") },
+    { value: "normale", label: t("priorite.normale") },
+    { value: "basse", label: t("priorite.basse") },
+  ];
+
+  const [eventPriorite, setEventPriorite] = useState(optionsPriorite[2]);
 
   // Préremplir les champs si on est en mode édition
   useEffect(() => {
@@ -57,11 +67,11 @@ const EventForm = () => {
       setErreur(t("event.required_error"));
       return;
     }
-     const aujourdHui = new Date().toISOString().split("T")[0];
-  if (eventDate < aujourdHui) {
+    const aujourdHui = new Date().toISOString().split("T")[0];
+    if (eventDate < aujourdHui) {
       setErreur(t("event.event_expired"));
-    return;
-  }
+      return;
+    }
 
     const payload = {
       titre: eventName,
@@ -69,6 +79,7 @@ const EventForm = () => {
       date: eventDate,
       heure: eventTime,
       lieu: eventLieu,
+      priorite: eventPriorite.value,
     };
 
     try {
@@ -143,6 +154,17 @@ const EventForm = () => {
         value={eventLieu}
         onChange={(e) => setEventLieu(e.target.value)}
         required
+      />
+
+      <label htmlFor="eventPriorite">{t("event.priority")}</label>
+      <Select
+        className="select-priorite"
+        id="eventPriorite"
+        options={optionsPriorite}
+        value={eventPriorite}
+        onChange={setEventPriorite}
+        placeholder={t("event.select_priority")}
+        isSearchable
       />
 
       {erreur && <p className="error">{erreur}</p>}

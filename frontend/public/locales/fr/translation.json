@@ -41,7 +41,9 @@
     "none": "Aucun événement prévu.",
     "more": "autres",
     "place": "Lieu",
-    "event_expired" : "La date ne peut pas être dans le passé."
+    "event_expired" : "La date ne peut pas être dans le passé.",
+     "priority": "Priorité",
+  "select_priority": "Sélectionner une priorité"
   },
   "day": {
     "previous": "Jour précédent",
@@ -78,5 +80,12 @@
     "cancel": "Annuler",
     "confirm": "Confirmer",
     "confirm_message": "Voulez-vous vraiment supprimer \"{{title}}\" ?"
-  }
+  },
+  "priorite": {
+  "critique": "Critique",
+  "elevee": "Élevée",
+  "normale": "Normale",
+  "basse": "Basse"
+   
+}
 }

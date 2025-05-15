@@ -61,6 +61,21 @@ function Calendar() {
     jours.push(<div key={`vide-${i}`} className="jour vide" />);
   }
 
+
+const getPriorityClass = (priorite) => {
+  switch (priorite?.toLowerCase()) {
+    case "critique":
+      return "event-priorite-critique";
+    case "elevee":
+      return "event-priorite-haute";
+    case "normale":
+      return "event-priorite-moyenne";
+    case "basse":
+      return "event-priorite-basse";
+    default:
+      return "";
+  }
+};
   // Puis les jours numérotés
   for (let i = 1; i <= joursDuMois; i++) {
     const eventsDuJour = getEvenementsPourJour(i);
@@ -81,7 +96,7 @@ function Calendar() {
         {eventsToShow.map((ev) => (
           <div
             key={ev.id}
-            className="event"
+            className={`event ${getPriorityClass(ev.priorite)}`}
             onClick={() => navigate(`/editEvent/${ev.id}`)}
           >
             {ev.titre}
@@ -112,6 +127,9 @@ function Calendar() {
     setMois(nouveauMois);
     setAnnee(nouvelleAnnee);
   };
+
+
+
 
   return (
     <div className="calendrier-wrapper">

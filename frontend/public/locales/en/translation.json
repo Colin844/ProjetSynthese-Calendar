@@ -40,7 +40,9 @@
     "none": "No events scheduled.",
     "more": "more",
      "place": "Place",
-     "event_expired" : "The date cannot be in the past."
+     "event_expired" : "The date cannot be in the past.",
+     "priority": "Priority",
+  "select_priority": "Select a priority"
 
   },
   "day": {
@@ -78,5 +80,12 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "confirm_message": "Are you sure you want to delete \"{{title}}\"?"
-  }
+  },
+  "priorite": {
+  "critique": "Critical",
+  "elevee": "High",
+  "normale": "Normal",
+  "basse": "Low"
+  
+}
 }
